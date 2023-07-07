@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
 
 class ScreeenAddMenu extends StatefulWidget {
   const ScreeenAddMenu({super.key});
@@ -60,7 +61,11 @@ class _ScreeenAddMenuState extends State<ScreeenAddMenu> {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          ScreenTambahResep()));
+                                },
                                 child: Text(
                                   'Resep',
                                   style: TextStyle(
@@ -96,22 +101,7 @@ class _ScreeenAddMenuState extends State<ScreeenAddMenu> {
                             SizedBox(
                               width: 10,
                             ),
-                            // Expanded(
-                            //   child: ElevatedButton(
-                            //     onPressed: () {},
-                            //     child: Text(
-                            //       'Cookbook',
-                            //       style: TextStyle(
-                            //           fontSize: 18,
-                            //           color: ColorConstants.textBlack),
-                            //     ),
-                            //     style: ElevatedButton.styleFrom(
-                            //         shape: RoundedRectangleBorder(
-                            //           borderRadius: BorderRadius.circular(15),
-                            //         ),
-                            //         primary: Color(0XFFF0F0F0)),
-                            //   ),
-                            // ),
+                          
                           ],
                         )),
                   ],
