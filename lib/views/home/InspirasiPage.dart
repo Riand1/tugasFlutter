@@ -9,6 +9,7 @@ import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenListResep.dart';
 import 'package:foodies/widgets/bannerResep.dart';
 import 'package:foodies/widgets/cardResep.dart';
+import 'package:foodies/widgets/cardTips.dart';
 import 'package:provider/provider.dart';
 
 class PageInspirasi extends StatefulWidget {
@@ -254,6 +255,24 @@ class _PageInspirasiState extends State<PageInspirasi> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    'Tips untuk dapur mu',
+                    style: TextStyle(
+                        fontSize: 14, color: ColorConstants.textWhite),
+                  ),
+                ),
+                Container(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: provTips.tipsList.map((res) {
+                        return CardTips(data: res);
+                      }).toList(),
+                    ),
                   ),
                 ),
               ],
