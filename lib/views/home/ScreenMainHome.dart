@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
-// import 'package:foodies/views/home/InspirasiPage.dart';
+import 'package:foodies/views/home/InspirasiPage.dart';
 // import 'package:foodies/views/home/MengikutiPage.dart';
 
 class ScreenMainHome extends StatefulWidget {
@@ -134,9 +134,9 @@ class _ScreenMainHomeState extends State<ScreenMainHome> {
                 ],
               ),
             ),
-            // Container(
-            //   child: _selectedIndex == 0 ? PageMengikuti() : PageInspirasi(),
-            // )
+            Container(
+              child: _selectedIndex == 0 ? Container() : PageInspirasi(),
+            )
           ],
         ),
       ),

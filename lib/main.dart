@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
+import 'package:foodies/providers/tipsProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/bottomNavigation.dart';
 import 'package:foodies/views/login/screenLogin.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserLoginProvider()),
+        ChangeNotifierProvider(create: (context) => TipsProvider()),
         ChangeNotifierProvider(create: (context) => ResepProvider()),
       ],
       child: MaterialApp(

@@ -230,3 +230,14 @@ List listTips = [
     ]
   },
 ];
+
+List listRandomImage = [
+  {'image': 'assets/images/randomImg/randomImg1.png'},
+  {'image': 'assets/images/randomImg/randomImg2.png'},
+  {'image': 'assets/images/randomImg/randomImg3.png'},
+  {'image': 'assets/images/randomImg/randomImg4.png'},
+  {'image': 'assets/images/randomImg/randomImg5.png'},
+  {'image': 'assets/images/randomImg/randomImg6.png'},
+  {'image': 'assets/images/randomImg/randomImg7.png'},
+  {'image': 'assets/images/randomImg/randomImg8.png'},
+];

@@ -1,11 +1,12 @@
 import 'dart:math';
-
+import 'package:foodies/utils/globalFunction.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/LoginModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
 import 'package:provider/provider.dart';
+import 'package:foodies/widgets/customDialog.dart';
 
 class ScreenRegister extends StatefulWidget {
   const ScreenRegister({super.key});
@@ -128,7 +129,8 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                               id: generateId().toString(),
                               username: _inputUsernameController.text,
                               email: _inputEmailController.text,
-                              password: _inputPasswordController.text));
+                              password: _inputPasswordController.text,
+                              mySave: []));
 
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ScreenLogin()));
