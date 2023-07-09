@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
+import 'package:foodies/views/profile/resep/mainResepProfile.dart';
+import 'package:foodies/views/profile/tersimpan/mainTersimpanProfile.dart';
 import 'package:provider/provider.dart';
 
 class ScreenProfile extends StatefulWidget {
@@ -142,6 +144,11 @@ class _ScreenProfileState extends State<ScreenProfile> {
               ],
             ),
           ),
+          Container(
+            child: _selectedIndex == 0
+                ? TersimpanMainProfile()
+                : ResepMainProfile(),
+          )
         ],
       )),
     );
