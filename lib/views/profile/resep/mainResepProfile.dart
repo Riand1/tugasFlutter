@@ -77,15 +77,48 @@ class _ResepMainProfileState extends State<ResepMainProfile> {
               ],
             ),
           ),
-          PageEmtpyCustom(
-              icon: Icon(
-                Icons.food_bank,
-                size: 200,
-              ),
-              title: 'Buat catatan Masak',
-              subtitle:
-                  'Simpan catatan maskanmu dengan mudah dan aman di Foodies.',
-              txtButton: 'Temukan Inspirasi Resep'),
+          _search //jika mode search
+              ? searchResults.length > 0
+                  ? Column(
+                      children: searchResults
+                          .where((res) =>
+                              res.status == 'publish' &&
+                              res.user[0] == user.username &&
+                              res.user[1] == user.email)
+                          .map((res) =>
+                              CardListProduct(action: 'view', data: res))
+                          .toList(),
+                    )
+                  : const Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        'Data Tidak Ada',
+                        style: TextStyle(
+                            color: ColorConstants.textWhite,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    )
+              : checkMyResep > 0
+                  ? Column(
+                      children: provResep.resepList
+                          .where((res) =>
+                              res.status == 'publish' &&
+                              res.user[0] == user.username &&
+                              res.user[1] == user.email)
+                          .map((res) {
+                        return CardListProduct(action: 'view', data: res);
+                      }).toList(),
+                    )
+                  : PageEmtpyCustom(
+                      icon: Icon(
+                        Icons.food_bank,
+                        size: 200,
+                      ),
+                      title: 'Buat catatan Masak',
+                      subtitle:
+                          'Simpan catatan maskanmu dengan mudah dan aman di Cookpad.',
+                      txtButton: 'Temukan Inspirasi Resep'),
         ],
       ),
     );
