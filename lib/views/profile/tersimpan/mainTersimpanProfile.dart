@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
-import 'myDraftProfile.dart';
+import 'package:foodies/views/profile/tersimpan/myDraftProfile.dart';
+
 import 'tersimpanProfile.dart';
 
 class TersimpanMainProfile extends StatefulWidget {

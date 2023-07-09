@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:foodies/utils/myColorApp.dart';
+
 List listIsiKulkas = [
   {'name': 'Ikan'},
   {'name': 'Ayam'},
@@ -228,6 +231,79 @@ List listTips = [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
     ]
+  },
+];
+
+List listSetting = [
+  {
+    'icon': Icon(
+      Icons.receipt,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Undang Teman'
+  },
+  {
+    'icon': Icon(
+      Icons.notification_important,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Preferensi Notifikasi'
+  },
+  {
+    'icon': Icon(
+      Icons.privacy_tip,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Kebijakan Privasi'
+  },
+  {
+    'icon': Icon(
+      Icons.rule,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Ketentuan Pemakaian'
+  },
+  {
+    'icon': Icon(
+      Icons.man_outlined,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Panduan Komunitas Foodies'
+  },
+  {
+    'icon': Icon(
+      Icons.block,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Pengguna yang diblokir'
+  },
+  {
+    'icon': Icon(
+      Icons.question_answer,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Pertanyaan yang sering ditanyakan'
+  },
+  {
+    'icon': Icon(
+      Icons.call,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Hubungi Kami'
+  },
+  {
+    'icon': Icon(
+      Icons.numbers,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Cek Versi Aplikasi Foodies'
+  },
+  {
+    'icon': Icon(
+      Icons.mode,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Mode'
   },
 ];
 
