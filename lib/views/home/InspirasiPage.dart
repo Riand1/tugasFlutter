@@ -9,9 +9,8 @@ import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenListResep.dart';
 import 'package:foodies/widgets/bannerResep.dart';
 import 'package:foodies/widgets/cardResep.dart';
+import 'package:foodies/widgets/cardTips.dart';
 import 'package:provider/provider.dart';
-
-import '../../widgets/cardTips.dart';
 
 class PageInspirasi extends StatefulWidget {
   const PageInspirasi({super.key});

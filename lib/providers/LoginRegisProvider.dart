@@ -6,7 +6,7 @@ class UserLoginProvider with ChangeNotifier {
     UserLoginModel(
         id: '12345',
         username: 'Reza Hermawan',
-        email: 'rezawaras5@gmail.com',
+        email: 'reza@gmail.com',
         password: 'reza',
         mySave: []),
   ];
@@ -26,6 +26,7 @@ class UserLoginProvider with ChangeNotifier {
     return _userLoginList.firstWhere((user) => user.id == id);
   }
 
+  // Metode untuk membuat dataItem yg disave oleh per user
   void saveItem(String idUser, String idItem) {
     final int userIndex =
         _userLoginList.indexWhere((res) => res.id == _idUserDoLogin);
@@ -42,5 +43,16 @@ class UserLoginProvider with ChangeNotifier {
   void register(UserLoginModel user) {
     _userLoginList.add(user);
     notifyListeners();
+  }
+
+  // Metode untuk mengupdate data user berdasarkan ID
+  void updateUser(String id, UserLoginModel updatedUser) {
+    final index = _userLoginList.indexWhere((user) => user.id == id);
+    if (index >= 0) {
+      _userLoginList[index] = updatedUser;
+      notifyListeners();
+    } else {
+      throw Exception('User not found');
+    }
   }
 }

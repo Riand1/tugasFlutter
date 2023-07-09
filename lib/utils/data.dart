@@ -176,7 +176,6 @@ List listTips = [
     'id': '',
     'user': ['bintang sinaga', '@bangnaga52'],
     'judul': 'Tips Memasak Steak yang Lezat',
-    'imgTips': ['image1.jpg', 'image2.jpg', 'image3.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -186,7 +185,6 @@ List listTips = [
     'id': '',
     'user': ['angela wijaya', '@angelawijaya'],
     'judul': 'Tips Merawat Tanaman Hias di Dalam Ruangan',
-    'imgTips': ['image4.jpg', 'image5.jpg', 'image6.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -196,7 +194,6 @@ List listTips = [
     'id': '',
     'user': ['hendra wibowo', '@hendrawibowo'],
     'judul': 'Tips Mengatur Keuangan Pribadi',
-    'imgTips': ['image7.jpg', 'image8.jpg', 'image9.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -206,7 +203,6 @@ List listTips = [
     'id': '',
     'user': ['melissa tan', '@melissatan'],
     'judul': 'Tips Membangun Kebiasaan Membaca',
-    'imgTips': ['image10.jpg', 'image11.jpg', 'image12.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -216,7 +212,6 @@ List listTips = [
     'id': '',
     'user': ['david wijaya', '@davidwijaya'],
     'judul': 'Tips Efektif dalam Presentasi',
-    'imgTips': ['image13.jpg', 'image14.jpg', 'image15.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -226,7 +221,6 @@ List listTips = [
     'id': '',
     'user': ['lisa santoso', '@lisasantoso'],
     'judul': 'Tips Membangun Hubungan yang Sehat',
-    'imgTips': ['image16.jpg', 'image17.jpg', 'image18.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'

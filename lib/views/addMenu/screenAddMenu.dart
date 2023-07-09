@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
-import 'package:foodies/views/addMenu/resep/screenTambahResep2.dart';
 import 'package:foodies/views/addMenu/tips/screenTambahTips.dart';
 
 class ScreeenAddMenu extends StatefulWidget {
@@ -107,6 +106,22 @@ class _ScreeenAddMenuState extends State<ScreeenAddMenu> {
                             SizedBox(
                               width: 10,
                             ),
+                            // Expanded(
+                            //   child: ElevatedButton(
+                            //     onPressed: () {},
+                            //     child: Text(
+                            //       'Cookbook',
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: ColorConstants.textBlack),
+                            //     ),
+                            //     style: ElevatedButton.styleFrom(
+                            //         shape: RoundedRectangleBorder(
+                            //           borderRadius: BorderRadius.circular(15),
+                            //         ),
+                            //         primary: Color(0XFFF0F0F0)),
+                            //   ),
+                            // ),
                           ],
                         )),
                   ],
