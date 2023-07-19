@@ -8,6 +8,7 @@ import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/widgets/customDialog.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quickalert/quickalert.dart';
 
 void showCustomDialog(BuildContext context, String title, String subtile,
     Color color, Icon icon) {
@@ -130,7 +131,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
   }
 
   bool isTerbitdate = false;
-  bool isTerbitTime = false; 
+  bool isTerbitTime = false;
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +182,12 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                           bahan: bahanList,
                           step: stepList,
                         ));
-                    showCustomDialog(
-                        context,
-                        'Berhasil',
-                        'Data Resep Berhasil Di Update',
-                        Colors.green,
-                        Icon(Icons.check));
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.success,
+                      title: "Berhasil",
+                      text: 'Data resep berhasil diupdate',
+                    );
                     Navigator.of(context).pop();
                     return;
                   }
@@ -215,12 +216,12 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     bahan: bahanList,
                     step: stepList,
                   ));
-                  showCustomDialog(
-                      context,
-                      'Berhasil',
-                      'Data Resep Berhasil Di Tambah',
-                      Colors.green,
-                      Icon(Icons.check));
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.success,
+                    title: "Berhasil",
+                    text: 'Data resep berhasil ditambahkan',
+                  );
                   Navigator.of(context).pop();
                   // showAlertDialog(BuildContext) {
                   //   return AlertDialog(
@@ -277,12 +278,12 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                         bahan: bahanList,
                         step: stepList,
                       ));
-                  showCustomDialog(
-                      context,
-                      'Berhasil',
-                      'Data Resep Berhasil Di Publish',
-                      Colors.green,
-                      Icon(Icons.check));
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.success,
+                    title: "Berhasil",
+                    text: 'Data resep berhasil diPublish',
+                  );
                   Navigator.of(context).pop();
                   return;
                 }
@@ -311,12 +312,12 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                   bahan: bahanList,
                   step: stepList,
                 ));
-                showCustomDialog(
-                    context,
-                    'Berhasil',
-                    'Data Resep Berhasil Di Publish',
-                    Colors.green,
-                    Icon(Icons.check));
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.success,
+                  title: "Berhasil",
+                  text: 'Data resep berhasil diPublish',
+                );
                 Navigator.of(context).pop();
               },
               child: Text('Terbitkan'),
