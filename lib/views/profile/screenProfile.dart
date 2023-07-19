@@ -3,6 +3,7 @@ import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
 import 'package:foodies/views/profile/ScreenSetting.dart';
+import 'package:foodies/views/profile/aboutUs.dart';
 import 'package:foodies/views/profile/resep/mainResepProfile.dart';
 import 'package:foodies/views/profile/screenUpdateProfile.dart';
 import 'package:foodies/views/profile/tersimpan/mainTersimpanProfile.dart';
@@ -56,9 +57,10 @@ class _ScreenProfileState extends State<ScreenProfile> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.bar_chart),
+            icon: Icon(Icons.info_outline),
             onPressed: () {
-              // Aksi yang ingin dilakukan saat tombol di tekan
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AboutUs()));
             },
           ),
           IconButton(

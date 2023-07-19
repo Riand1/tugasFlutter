@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/resepModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
@@ -30,6 +31,7 @@ class ScreenTambahResep extends StatefulWidget {
 class _ScreenTambahResepState extends State<ScreenTambahResep> {
   int _inputBahan = 2;
   int _inputStep = 1;
+  String waktu = '';
 
   final TextEditingController _inputJudulController = TextEditingController();
   final TextEditingController _inputCeritaController = TextEditingController();
@@ -39,6 +41,19 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
 
   final List<TextEditingController> _inputBahanControllerList = [];
   final List<TextEditingController> _inputStepControllerList = [];
+
+  ImageProvider? gambar;
+  getFromGallery() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      setState(() {
+        gambar = MemoryImage(bytes);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -50,6 +65,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
       _inputDaerahController.text = widget.data.cerita[1] ?? '';
       _inputPorsiController.text = widget.data.porsi ?? '';
       _inputWaktuController.text = widget.data.lamaWaktu ?? '';
+      gambar = widget.data.cover2 ?? '';
 
       _inputBahan = widget.data.bahan.length;
       // Memasukkan data bahan ke dalam TextEditingController
@@ -105,25 +121,23 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
     });
   }
 
+  void _showDatePicker() {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2025));
+  }
+
+  bool isTerbitdate = false;
+  bool isTerbitTime = false; 
+
   @override
   Widget build(BuildContext context) {
     final provResep = Provider.of<ResepProvider>(context);
     final provIdUser = Provider.of<UserLoginProvider>(context);
     final user = Provider.of<UserLoginProvider>(context)
         .getUserById(provIdUser.idUserDoLogin);
-
-    ImageProvider? gambar;
-    getFromGallery() async {
-      XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-      );
-      if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
-        setState(() {
-          gambar = MemoryImage(bytes);
-        });
-      }
-    }
 
     return Scaffold(
       backgroundColor: ColorConstants.themeColor,
@@ -208,9 +222,31 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                       Colors.green,
                       Icon(Icons.check));
                   Navigator.of(context).pop();
+                  // showAlertDialog(BuildContext) {
+                  //   return AlertDialog(
+                  //     title: const Text('Simpan Resep'),
+                  //     content: const Text(
+                  //         'Apakah anda ingin mengatur schedule terbitkan resep ?'),
+                  //     actions: [
+                  //       TextButton(
+                  //         onPressed: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: Text('Set Schedule'),
+                  //       ),
+                  //       TextButton(
+                  //         onPressed: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: Text("Nanti Saja"),
+                  //       ),
+                  //     ],
+                  //   );
+                  // }
                 },
                 child: Text('Simpan')),
           ),
+          // waktu !=null?
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
@@ -314,96 +350,44 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
           children: [
             gambar == null
                 ? InkWell(
-                    onTap: () => setState(() {
-                      getFromGallery();
-                    }),
                     child: Container(
                       width: double.infinity,
                       height: 200,
                       color: Colors.grey,
+                      child: Center(
+                        child: Icon(Icons.image, color: Colors.black54),
+                      ),
                     ),
+                    onTap: () {
+                      setState(() {
+                        getFromGallery();
+                      });
+                    },
                   )
                 : InkWell(
-                    onTap: () => setState(() {
-                      getFromGallery();
-                    }),
                     child: Container(
                       width: double.infinity,
                       height: 200,
-                      color: Colors.amber,
-                      // decoration:
-                      //     BoxDecoration(image: DecorationImage(image: gambar!)),
-                      child: Text('babi'),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: gambar!,
+                        fit: BoxFit.cover,
+                      )),
                     ),
+                    onTap: () {
+                      setState(() {
+                        getFromGallery();
+                      });
+                    },
                   ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: TextField(
-                controller: _inputJudulController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        15), // Ganti dengan radius yang diinginkan
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey,
-                  hintText: 'Judul: Sup Ayam',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: TextField(
-                controller: _inputCeritaController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        15), // Ganti dengan radius yang diinginkan
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey,
-                  hintText:
-                      'Cerita di balik masakan ini. Apa atau siapa yang menginspirasimu? Apa yang membuatnya istimewa? Bagaimana caramu menikmatinya?',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: TextField(
-                controller: _inputDaerahController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        15), // Ganti dengan radius yang diinginkan
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey,
-                  hintText: 'Masukkan daerah asal resep',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Row(
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Column(
                 children: [
                   Container(
-                    width: 150,
-                    child: Text(
-                      'Porsi',
-                      style: TextStyle(
-                          color: ColorConstants.textWhite,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
+                    margin: EdgeInsets.symmetric(vertical: 10),
                     child: TextField(
-                      controller: _inputPorsiController,
+                      controller: _inputJudulController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(
@@ -411,31 +395,16 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                         ),
                         filled: true,
                         fillColor: Colors.grey,
-                        hintText: '2 orang',
+                        hintText: 'Judul: Sup Ayam',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
                   Container(
-                    width: 150,
-                    child: Text(
-                      'Lama memasak',
-                      style: TextStyle(
-                          color: ColorConstants.textWhite,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
+                    margin: EdgeInsets.only(top: 10),
                     child: TextField(
-                      controller: _inputWaktuController,
+                      controller: _inputCeritaController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(
@@ -443,39 +412,46 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                         ),
                         filled: true,
                         fillColor: Colors.grey,
-                        hintText: '1 jam 30 menit',
+                        hintText:
+                            'Cerita di balik masakan ini. Apa atau siapa yang menginspirasimu? Apa yang membuatnya istimewa? Bagaimana caramu menikmatinya?',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Divider(
-              color: Colors.grey,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'Bahan',
-                style: TextStyle(
-                    color: ColorConstants.textWhite,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Column(
-              children: List.generate(
-                  _inputBahan,
-                  (index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.list,
-                            color: ColorConstants.textWhite,
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      controller: _inputDaerahController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                              15), // Ganti dengan radius yang diinginkan
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey,
+                        hintText: 'Masukkan daerah asal resep',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            'Porsi',
+                            style: TextStyle(
+                                color: ColorConstants.textWhite,
+                                fontWeight: FontWeight.bold),
                           ),
-                          title: TextFormField(
-                            controller: _inputBahanControllerList[index],
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: _inputPorsiController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
@@ -483,127 +459,265 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                               ),
                               filled: true,
                               fillColor: Colors.grey,
-                              hintText: 'Bahan ${index + 1}',
+                              hintText: '2 orang',
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 5),
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.more_horiz,
-                            color: ColorConstants.textWhite,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            'Lama memasak',
+                            style: TextStyle(
+                                color: ColorConstants.textWhite,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                      )),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: _addInputBahan,
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.add,
-                            color: ColorConstants.textWhite,
-                            size: 40,
+                        Expanded(
+                          child: TextField(
+                            controller: _inputWaktuController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    15), // Ganti dengan radius yang diinginkan
+                              ),
+                              filled: true,
+                              fillColor: Colors.grey,
+                              hintText: '1 jam 30 menit',
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 5),
+                            ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Bahan',
-                            style: TextStyle(
-                                color: ColorConstants.textWhite, fontSize: 18),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ),
-            ),
-            Divider(
-              color: Colors.grey,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'Langkah',
-                style: TextStyle(
-                    color: ColorConstants.textWhite,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Column(
-              children: List.generate(
-                  _inputStep,
-                  (index) => Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Container(
-                          child: ListTile(
-                            leading: Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 15,
-                                  child: Text('${index + 1}'),
-                                ),
-                                SizedBox(
-                                  height: 2,
-                                ),
-                                Icon(
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            'Set Schedule',
+                            style: TextStyle(
+                                color: ColorConstants.textWhite,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        // Expanded(
+                        //   child: TextField(
+                        //     controller: _inputWaktuController,
+                        //     decoration: InputDecoration(
+                        //       border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(
+                        //             15), // Ganti dengan radius yang diinginkan
+                        //       ),
+                        //       filled: true,
+                        //       fillColor: Colors.grey,
+                        //       contentPadding: EdgeInsets.symmetric(
+                        //           horizontal: 15, vertical: 5),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Container(
+                          color: Colors.grey,
+                          child: DateTimePicker(
+                            type: DateTimePickerType.dateTimeSeparate,
+                            dateMask: 'd MMM, yyyy',
+                            initialValue: '',
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                            icon: Icon(Icons.event),
+                            dateLabelText: 'Date',
+                            timeLabelText: "Hour",
+                            selectableDayPredicate: (date) {
+                              return true;
+                            },
+                            onChanged: (val) => waktu = val.toString(),
+                            validator: (val) {
+                              waktu = val.toString();
+                              return null;
+                            },
+                            onSaved: (val) => waktu = val.toString(),
+                          ),
+                        ))
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      'Bahan',
+                      style: TextStyle(
+                          color: ColorConstants.textWhite,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Column(
+                    children: List.generate(
+                        _inputBahan,
+                        (index) => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: ListTile(
+                                leading: Icon(
                                   Icons.list,
                                   color: ColorConstants.textWhite,
-                                )
+                                ),
+                                title: TextFormField(
+                                  controller: _inputBahanControllerList[index],
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          15), // Ganti dengan radius yang diinginkan
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.grey,
+                                    hintText: 'Bahan ${index + 1}',
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 5),
+                                  ),
+                                ),
+                                trailing: Icon(
+                                  Icons.more_horiz,
+                                  color: ColorConstants.textWhite,
+                                ),
+                              ),
+                            )),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: _addInputBahan,
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: ColorConstants.textWhite,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Bahan',
+                                  style: TextStyle(
+                                      color: ColorConstants.textWhite,
+                                      fontSize: 18),
+                                ),
                               ],
                             ),
-                            title: TextFormField(
-                              controller: _inputStepControllerList[index],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      15), // Ganti dengan radius yang diinginkan
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      'Langkah',
+                      style: TextStyle(
+                          color: ColorConstants.textWhite,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Column(
+                    children: List.generate(
+                        _inputStep,
+                        (index) => Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                child: ListTile(
+                                  leading: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 15,
+                                        child: Text('${index + 1}'),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Icon(
+                                        Icons.list,
+                                        color: ColorConstants.textWhite,
+                                      )
+                                    ],
+                                  ),
+                                  title: TextFormField(
+                                    controller: _inputStepControllerList[index],
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            15), // Ganti dengan radius yang diinginkan
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.grey,
+                                      hintText: 'Step ${index + 1}',
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 5),
+                                    ),
+                                  ),
                                 ),
-                                filled: true,
-                                fillColor: Colors.grey,
-                                hintText: 'Step ${index + 1}',
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5),
                               ),
+                            )),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: _addInputStep,
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: ColorConstants.textWhite,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Langkah',
+                                  style: TextStyle(
+                                      color: ColorConstants.textWhite,
+                                      fontSize: 18),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                      )),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: _addInputStep,
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.add,
-                            color: ColorConstants.textWhite,
-                            size: 40,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Langkah',
-                            style: TextStyle(
-                                color: ColorConstants.textWhite, fontSize: 18),
-                          ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
